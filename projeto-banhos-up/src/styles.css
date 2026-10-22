@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+:root {
+  --azul-escuro: #013e73;
+  --azul: #2595e4;
+  --azul-claro: #8fd7f9;
+  --laranja: #fea829;
+  --texto: #20252b;
+  --fundo: #ffffff;
+  --fundo-suave: #f3faff;
+  --largura-conteudo: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--texto);
+  background: var(--fundo);
+  font-family: 'Fredoka', sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}

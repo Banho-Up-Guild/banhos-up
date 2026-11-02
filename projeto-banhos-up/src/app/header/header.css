@@ -1,0 +1,138 @@
+:host {
+  display: block;
+}
+
+.header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e5edf3;
+  box-shadow: 0 2px 10px rgb(1 62 115 / 8%);
+}
+
+.header__conteudo {
+  width: min(1400px, calc(100% - 48px));
+  min-height: 76px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.header__logo {
+  justify-self: start;
+}
+
+.header__logo img {
+  width: 145px;
+  display: block;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.header__nav a {
+  color: #013e73;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.header__nav > a:not(.header__item):hover {
+  color: #fea829;
+}
+
+.header__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.header__icone {
+  width: 27px;
+  height: 27px;
+  fill: none;
+  stroke: #013e73;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.header__menu-botao {
+  display: none;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.header__menu-botao span {
+  width: 26px;
+  height: 3px;
+  display: block;
+  margin: 4px 0;
+  border-radius: 4px;
+  background: #013e73;
+}
+
+@media (max-width: 900px) {
+  .header__conteudo {
+    width: min(100% - 36px, 720px);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header__contato {
+    display: none;
+  }
+
+  .header__menu-botao {
+    display: block;
+  }
+
+  .header__nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 16px 18px 22px;
+    display: none;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5edf3;
+    box-shadow: 0 8px 12px rgb(1 62 115 / 10%);
+  }
+
+  .header__nav--aberto {
+    display: flex;
+  }
+}
+
+@media (max-width: 460px) {
+  .header__conteudo {
+    min-height: 64px;
+  }
+
+  .header__logo img {
+    width: 125px;
+  }
+}
+
+.header__contato {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #013e73;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}

@@ -1,115 +1,147 @@
-<header class="topbar">
-  <a class="brand" href="/" aria-label="BanhosUp! início">
-    <span>BANHOS <strong>UP!</strong></span>
-    <small>BANHO E TOSA</small>
-  </a>
-
-  <nav class="topbar__links" aria-label="Navegação principal">
-    <a href="#etapas">Como funciona?</a>
-    <a href="#parceiros">Parceiros</a>
-    <a class="topbar__phone" href="tel:+5511982981263">(11) 98298-1263</a>
-    <a class="button button--small" href="/agendamento">Agendar</a>
-  </nav>
-</header>
-
-<main>
+<main class="home">
   <section class="hero">
-    <div class="hero__copy">
-      <p class="eyebrow">Carinho, limpeza e bem-estar</p>
-      <h1>Banho e tosa com cuidado de verdade</h1>
+    <div class="hero__texto">
+      <h1>Banho e Tosa</h1>
+
       <p>
-        Seu pet merece um momento especial. Agende online e escolha os
-        serviços que combinam com ele.
+        Na Banhos Up, o cuidado com seu pet é levado a sério. Agende um horário
+        e ofereça conforto, higiene e carinho para ele.
       </p>
-      <a class="button" href="/agendamento">Agendar agora</a>
+
+      <a class="botao-agendar" routerLink="/agendamento">
+        Agendar agora
+        <span aria-hidden="true">→</span>
+      </a>
     </div>
 
-    <div class="hero__media" aria-label="Vídeo de apresentação da BanhosUp!">
-      <span class="play" aria-hidden="true"></span>
-      <span class="hero__media-label">Conheça a BanhosUp!</span>
-    </div>
+    <div class="hero__video">
+  <video autoplay muted loop playsinline>
+    <source src="assets/home/banho_pet.mp4" type="video/mp4" />
+    Seu navegador não suporta a reprodução de vídeo.
+  </video>
+</div>
   </section>
 
-  <section class="care">
-    <div class="care__illustration" aria-hidden="true">
-      <span>UP!</span>
+  <section class="recomendacao">
+    <div class="recomendacao__imagem">
+      <img
+  src="assets/home/pet_higiene_gato.jpg"
+  alt="Pet recebendo cuidados de higiene"
+/>
     </div>
 
-    <div class="care__copy">
-      <p class="eyebrow">Cuidado em cada detalhe</p>
-      <h2>A higiene do seu pet é recomendada por veterinários</h2>
-      <ul class="check-list">
-        <li>Profissionais preparados para cuidar do seu pet</li>
-        <li>Produtos escolhidos para cada tipo de pelagem</li>
-        <li>Um atendimento pensado para o bem-estar</li>
-        <li>Carinho em todas as etapas do banho</li>
+    <div class="recomendacao__texto">
+      <h2>A higiene do seu pet é recomendada por veterinários!</h2>
+
+      <ul>
+        <li>Profissionais preparados para cuidar do seu pet.</li>
+        <li>Produtos adequados para cada tipo de pelagem.</li>
+        <li>Atendimento com carinho e segurança.</li>
+        <li>Um ambiente confortável para seu melhor amigo.</li>
       </ul>
     </div>
   </section>
 
-  <section class="content-section" id="etapas">
-    <div class="section-heading">
-      <p class="eyebrow">Um momento tranquilo</p>
-      <h2>Conheça as etapas do banho</h2>
-    </div>
+  <section class="secao">
+    <h2>Conheça etapas do banho</h2>
 
-    <div class="steps-grid">
-      <article class="info-card"><span>01</span><h3>Avaliação</h3><p>Entendemos as necessidades do seu pet.</p></article>
-      <article class="info-card"><span>02</span><h3>Banho</h3><p>Usamos produtos adequados para cada pelagem.</p></article>
-      <article class="info-card"><span>03</span><h3>Secagem</h3><p>Secamos com atenção e cuidado.</p></article>
-      <article class="info-card"><span>04</span><h3>Finalização</h3><p>Seu pet volta limpinho e cheiroso.</p></article>
+    <div class="etapas">
+      <article class="etapa">
+        <span>1</span>
+        <h3>Avaliação</h3>
+        <p>Entendemos o que seu pet precisa.</p>
+      </article>
+
+      <article class="etapa">
+        <span>2</span>
+        <h3>Banho</h3>
+        <p>Limpeza com produtos apropriados.</p>
+      </article>
+
+      <article class="etapa">
+        <span>3</span>
+        <h3>Secagem</h3>
+        <p>Secagem cuidadosa e confortável.</p>
+      </article>
+
+      <article class="etapa">
+        <span>4</span>
+        <h3>Finalização</h3>
+        <p>Seu pet pronto, limpo e cheiroso.</p>
+      </article>
     </div>
   </section>
 
-  <section class="content-section content-section--soft">
-    <div class="section-heading">
-      <p class="eyebrow">Mais cuidado para seu pet</p>
-      <h2>Melhores produtos para seu pet</h2>
-    </div>
+  <section class="secao secao--clara">
+    <h2>Melhores produtos pro seu pet</h2>
 
-    <div class="product-row" aria-label="Produtos para pets">
-      <span class="product-bubble">Shampoo</span>
-      <span class="product-bubble">Hidratação</span>
-      <span class="product-bubble">Pelagem</span>
-      <span class="product-bubble">Cuidados</span>
-      <span class="product-bubble">Bem-estar</span>
+    <div class="produtos">
+      <div class="produto">Shampoo</div>
+      <div class="produto">Hidratação</div>
+      <div class="produto">Pelagem</div>
+      <div class="produto">Perfume</div>
+      <div class="produto">Cuidados</div>
     </div>
   </section>
 
-  <section class="content-section">
-    <div class="section-heading">
-      <p class="eyebrow">Simples e prático</p>
-      <h2>Como funciona o atendimento</h2>
-    </div>
+  <section class="secao">
+    <h2>Como funciona o atendimento</h2>
 
-    <div class="steps-grid steps-grid--three">
-      <article class="info-card"><span>1</span><h3>Escolha os serviços</h3><p>Selecione o que seu pet precisa.</p></article>
-      <article class="info-card"><span>2</span><h3>Escolha data e horário</h3><p>Veja as opções disponíveis.</p></article>
-      <article class="info-card"><span>3</span><h3>Confirme o agendamento</h3><p>Revise os detalhes e pronto!</p></article>
-    </div>
+    <div class="atendimentos">
+      <article class="atendimento">
+        <span>1</span>
+        <h3>Escolha o serviço</h3>
+        <p>Informe o que seu pet precisa.</p>
+      </article>
 
-    <a class="button section-cta" href="/agendamento">Começar agendamento</a>
+      <article class="atendimento">
+        <span>2</span>
+        <h3>Escolha a data</h3>
+        <p>Selecione o melhor dia e horário.</p>
+      </article>
+
+      <article class="atendimento">
+        <span>3</span>
+        <h3>Confirme</h3>
+        <p>Revise e confirme seu agendamento.</p>
+      </article>
+
+      <article class="atendimento">
+        <span>4</span>
+        <h3>Traga seu pet</h3>
+        <p>Nossa equipe estará esperando.</p>
+      </article>
+
+      <article class="atendimento">
+        <span>5</span>
+        <h3>Acompanhe</h3>
+        <p>Receba todas as informações.</p>
+      </article>
+    </div>
   </section>
 
-  <section class="content-section content-section--soft">
-    <div class="section-heading">
-      <p class="eyebrow">Feito com carinho</p>
-      <h2>Companhia e cuidado que fazem a diferença</h2>
-    </div>
+  <section class="secao companhia">
+    <h2>Companhia e cuidado que fazem a diferença</h2>
 
-    <div class="partner-cards" id="parceiros">
-      <div class="partner-card">Parceiro BanhosUp!</div>
-      <div class="partner-card partner-card--highlight">Cuidado para toda a família</div>
-      <div class="partner-card">Bem-estar em primeiro lugar</div>
-    </div>
+    <div class="companhia__cards">
+  <article class="companhia__card companhia__card--imagem">
+    <img
+      src="assets/home/cat_final.jpg"
+      alt="Gato recebendo cuidados"
+    />
+  </article>
+
+  <article class="companhia__card companhia__card--destaque">
+    <span>15%</span>
+    <p>De desconto no primeiro banho</p>
+  </article>
+
+  <article class="companhia__card companhia__card--imagem">
+    <img
+      src="assets/home/dog_final.jpg"
+      alt="Cachorro recebendo cuidados"
+    />
+  </article>
+</div>
   </section>
 </main>
-
-<footer class="footer">
-  <a class="brand brand--footer" href="/">
-    <span>BANHOS <strong>UP!</strong></span>
-    <small>BANHO E TOSA</small>
-  </a>
-  <p>Carinho, limpeza e bem-estar para o seu pet.</p>
-  <a href="/agendamento">Agende um horário</a>
-</footer>

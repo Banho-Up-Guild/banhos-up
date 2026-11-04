@@ -1,3 +1,646 @@
-<h1>Agendamento e pagamento</h1>
-<p>A página de agendamento será construída aqui.</p>
-<a href="/">Voltar para a Home</a>
+<main class="agendamento">
+
+  <!-- CABEÇALHO -->
+  <div class="topo-agendamento">
+    <button
+      type="button"
+      class="voltar"
+      (click)="voltar()"
+      [disabled]="etapa === 0"
+      aria-label="Voltar">
+      ‹
+    </button>
+
+    <h1>Agendamento</h1>
+  </div>
+
+  <div class="layout-agendamento">
+
+    <!-- INDICADOR DE ETAPAS -->
+    <aside class="progresso" aria-label="Etapas do agendamento">
+
+      @for (nome of ['Pet', 'Lojas', 'Serviços', 'Profissional', 'Data e Hora', 'Resumo']; track nome; let i = $index) {
+        <button
+          type="button"
+          [class.ativo]="etapa === i"
+          [class.concluido]="etapa > i"
+          (click)="etapa > i ? etapa = i : null">
+
+          <span class="progresso__ponto">
+            {{ etapa > i ? '✓' : '' }}
+          </span>
+
+          <span>{{ nome }}</span>
+        </button>
+      }
+
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <section class="conteudo-etapa">
+
+      @if (confirmado) {
+
+        <!-- CONFIRMAÇÃO -->
+        <div class="sucesso">
+
+          <div class="sucesso__icone">✓</div>
+
+          <p class="sobretitulo">Banhos Up!</p>
+
+          <h2>Agendamento solicitado!</h2>
+
+          <p>
+            Seu pedido foi registrado nesta demonstração.
+            A confirmação real depende da integração com o sistema da loja.
+          </p>
+
+          <button
+            class="botao botao--primario"
+            (click)="confirmado = false; etapa = 0">
+
+            Fazer novo agendamento
+
+          </button>
+
+        </div>
+
+      } @else {
+
+        <!-- ETAPA 1: PETS -->
+        @if (etapa === 0) {
+
+          <p class="sobretitulo">Meus pets</p>
+
+          <h2>Escolha o pet para realizar o agendamento</h2>
+
+          <div class="pets-lista">
+
+            @for (pet of pets; track pet.id) {
+
+              <button
+                class="pet-opcao"
+                [class.selecionado]="petsSelecionados.includes(pet.id)"
+                (click)="alternarPet(pet.id)"
+                type="button">
+
+                <span class="pet-avatar">
+                  {{ pet.especie === 'Gato' ? '🐈' : '🐕' }}
+                </span>
+
+                <strong>{{ pet.nome }}</strong>
+
+                <small>{{ pet.especie }}</small>
+
+              </button>
+
+            }
+
+            <button
+              class="pet-opcao novo-pet"
+              type="button"
+              (click)="mostrarNovoPet = !mostrarNovoPet">
+
+              <span class="mais">+</span>
+
+              <strong>Novo pet</strong>
+
+            </button>
+
+          </div>
+
+          @if (mostrarNovoPet) {
+
+            <div class="painel-form">
+
+              <h3>Cadastrar pet</h3>
+
+              <label>
+                Nome do pet
+
+                <input
+                  [(ngModel)]="novoPet.nome"
+                  placeholder="Ex.: Thor">
+              </label>
+
+              <div class="campos-duplos">
+
+                <label>
+                  Espécie
+
+                  <select [(ngModel)]="novoPet.especie">
+                    <option>Cachorro</option>
+                    <option>Gato</option>
+                  </select>
+
+                </label>
+
+                <label>
+                  Porte
+
+                  <select [(ngModel)]="novoPet.porte">
+                    <option>Pequeno</option>
+                    <option>Médio</option>
+                    <option>Grande</option>
+                  </select>
+
+                </label>
+
+              </div>
+
+              <button
+                class="botao botao--primario"
+                (click)="adicionarPet()">
+
+                Adicionar pet
+
+              </button>
+
+            </div>
+
+          }
+
+          <p class="ajuda">
+            {{ petsSelecionados.length }} pet(s) selecionado(s).
+            Você pode selecionar mais de um.
+          </p>
+
+        }
+
+        <!-- ETAPA 2: LOJAS -->
+        @if (etapa === 1) {
+
+          <p class="sobretitulo">Lojas</p>
+
+          <h2>Em qual loja será o atendimento?</h2>
+
+          <div class="lojas-layout">
+
+            <div class="lojas-filtros">
+
+              <label>
+                Digite o CEP
+
+                <input
+                  [(ngModel)]="cep"
+                  placeholder="Digite o CEP"
+                  maxlength="9">
+              </label>
+
+              <div class="campos-duplos">
+
+                <label>
+                  Estado
+
+                  <select [(ngModel)]="estado">
+                    <option value="">Selecione</option>
+                    <option>SP</option>
+                  </select>
+
+                </label>
+
+                <label>
+                  Cidade
+
+                  <select [(ngModel)]="cidade">
+                    <option value="">Selecione</option>
+                    <option>Diadema</option>
+                    <option>Embu-Guaçu</option>
+                  </select>
+
+                </label>
+
+              </div>
+
+              <p class="sobretitulo lojas-titulo">
+                Lojas disponíveis
+              </p>
+
+              @for (loja of lojas; track loja.id) {
+
+                <button
+                  class="loja-card"
+                  [class.selecionado]="lojaSelecionada === loja.id"
+                  (click)="lojaSelecionada = loja.id"
+                  type="button">
+
+                  <span class="radio">
+                    {{ lojaSelecionada === loja.id ? '●' : '' }}
+                  </span>
+
+                  <span>
+
+                    <strong>{{ loja.nome }}</strong>
+
+                    <small>
+                      {{ loja.endereco }}<br>
+                      {{ loja.cidade }} - {{ loja.estado }},
+                      {{ loja.cep }}
+                    </small>
+
+                  </span>
+
+                </button>
+
+              }
+
+            </div>
+
+            <!-- REPRESENTAÇÃO VISUAL DO MAPA -->
+            <div class="mapa-fake">
+
+              <span>⌖</span>
+
+              <small>Localização das lojas</small>
+
+            </div>
+
+          </div>
+
+        }
+
+        <!-- ETAPA 3: SERVIÇOS -->
+        @if (etapa === 2) {
+
+          <p class="sobretitulo">Serviços</p>
+
+          <h2>Escolha os serviços para os pets</h2>
+
+          <div class="abas-pets">
+
+            @for (pet of petsAtivos; track pet.id) {
+
+              <span class="aba-pet">
+                {{ pet.especie === 'Gato' ? '🐈' : '🐕' }}
+                {{ pet.nome }}
+              </span>
+
+            }
+
+          </div>
+
+          @for (pet of petsAtivos; track pet.id) {
+
+            <section class="servicos-pet">
+
+              <h3>
+                {{ pet.nome }}
+                <small>{{ pet.especie }}</small>
+              </h3>
+
+              @for (grupo of grupoServicos(); track grupo) {
+
+                <h4>{{ grupo }}</h4>
+
+                @for (servico of servicosDoGrupo(grupo); track servico.id) {
+
+                  <button
+                    type="button"
+                    class="servico-card"
+                    [class.selecionado]="servicosPet(pet.id).includes(servico.id)"
+                    (click)="alternarServico(pet.id, servico)">
+
+                    <span class="radio">
+                      {{ servicosPet(pet.id).includes(servico.id) ? '●' : '' }}
+                    </span>
+
+                    <span class="servico-info">
+
+                      <strong>{{ servico.nome }}</strong>
+
+                      <small>
+                        {{ servico.duracao }} min ·
+                        {{ servico.descricao || (servico.obrigatorio ? 'Serviço obrigatório' : '') }}
+                      </small>
+
+                    </span>
+
+                    <strong class="preco">
+                      {{ formatar(servico.preco) }}
+                    </strong>
+
+                  </button>
+
+                }
+
+              }
+
+              <p class="subtotal">
+                Subtotal de {{ pet.nome }}:
+
+                <strong>
+                  {{ formatar(precoPet(pet.id)) }}
+                </strong>
+              </p>
+
+            </section>
+
+          }
+
+          <div class="aviso">
+            ⓘ Para realizar outros serviços, o banho é obrigatório.
+            O tempo informado para cada atendimento é aproximado.
+          </div>
+
+        }
+
+        <!-- ETAPA 4: PROFISSIONAIS -->
+        @if (etapa === 3) {
+
+          <p class="sobretitulo">Profissionais</p>
+
+          <h2>Quem vai atender os seus pets?</h2>
+
+          @for (pet of petsAtivos; track pet.id) {
+
+            <section class="profissional-pet">
+
+              <h3>{{ pet.nome }}</h3>
+
+              @for (prof of profissionais; track prof) {
+
+                <label class="radio-linha">
+
+                  <input
+                    type="radio"
+                    [name]="'prof' + pet.id"
+                    [value]="prof"
+                    [(ngModel)]="profissionalPorPet[pet.id]">
+
+                  <span>{{ prof }}</span>
+
+                </label>
+
+              }
+
+            </section>
+
+          }
+
+        }
+
+        <!-- ETAPA 5: DATA E HORÁRIO -->
+        @if (etapa === 4) {
+
+          <p class="sobretitulo">Disponibilidade</p>
+
+          <h2>Qual a melhor data e horário?</h2>
+
+          <div class="calendario">
+
+            <div class="calendario__topo">
+
+              <button
+                (click)="mudarMes(-1)"
+                type="button"
+                aria-label="Mês anterior">
+                ‹
+              </button>
+
+              <h3>{{ tituloMes }}</h3>
+
+              <button
+                (click)="mudarMes(1)"
+                type="button"
+                aria-label="Próximo mês">
+                ›
+              </button>
+
+            </div>
+
+            <div class="dias-semana">
+
+              @for (d of ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']; track $index) {
+                <span>{{ d }}</span>
+              }
+
+            </div>
+
+            <div class="dias-grid">
+
+              @for (dia of diasMes; track $index) {
+
+                @if (dia) {
+
+                  <button
+                    type="button"
+                    [disabled]="diaPassado(dia)"
+                    [class.selecionado]="diaSelecionado(dia)"
+                    (click)="selecionarDia(dia)">
+
+                    {{ dia }}
+
+                  </button>
+
+                } @else {
+
+                  <span></span>
+
+                }
+
+              }
+
+            </div>
+
+          </div>
+
+          <div class="horarios">
+
+            <h3>Em qual horário?</h3>
+
+            <p class="ajuda">
+              Tempo total aproximado: {{ duracaoTotal }} minutos
+            </p>
+
+            <div class="horarios-grid">
+
+              @for (hora of horarios; track hora) {
+
+                <button
+                  type="button"
+                  [class.selecionado]="horarioSelecionado === hora"
+                  (click)="horarioSelecionado = hora">
+
+                  {{ hora }}
+
+                  <small>{{ duracaoTotal }} min</small>
+
+                </button>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+        <!-- ETAPA 6: RESUMO -->
+        @if (etapa === 5) {
+
+          <p class="sobretitulo">Confira os dados</p>
+
+          <h2>Resumo do agendamento</h2>
+
+          <div class="resumo">
+
+            <div class="resumo__linha">
+              <span>Loja</span>
+              <strong>{{ lojaAtual?.nome }}</strong>
+            </div>
+
+            <div class="resumo__linha">
+              <span>Endereço</span>
+
+              <strong>
+                {{ lojaAtual?.endereco }},
+                {{ lojaAtual?.cidade }} - {{ lojaAtual?.estado }}
+              </strong>
+            </div>
+
+            <div class="resumo__linha">
+              <span>Data</span>
+              <strong>{{ dataFormatada }}</strong>
+            </div>
+
+            <div class="resumo__linha">
+              <span>Horário</span>
+              <strong>{{ horarioSelecionado }}</strong>
+            </div>
+
+            <div class="resumo__linha">
+              <span>Duração aproximada</span>
+              <strong>{{ duracaoTotal }} min</strong>
+            </div>
+
+          </div>
+
+          <h3 class="titulo-servicos">Serviços agendados</h3>
+
+          @for (pet of petsAtivos; track pet.id) {
+
+            <article class="resumo-pet">
+
+              <h3>
+                {{ pet.especie === 'Gato' ? '🐈' : '🐕' }}
+                {{ pet.nome }}
+              </h3>
+
+              <p>
+                Profissional
+
+                <strong>
+                  {{ profissionalPorPet[pet.id] || 'Sem preferência' }}
+                </strong>
+              </p>
+
+              @for (id of servicosPet(pet.id); track id) {
+
+                <p>
+                  {{ nomeServico(id) }}
+
+                  <strong>
+                    {{ formatar(precoServico(id)) }}
+                  </strong>
+                </p>
+
+              }
+
+              <label>
+
+                Observações
+                <small>(opcional)</small>
+
+                <textarea
+                  [(ngModel)]="observacoes[pet.id]"
+                  maxlength="200"
+                  placeholder="Alergias, temperamento, doenças, entre outros.">
+                </textarea>
+
+              </label>
+
+            </article>
+
+          }
+
+          <div class="total">
+
+            <span>Total do agendamento</span>
+
+            <strong>{{ formatar(total) }}</strong>
+
+          </div>
+
+          <div class="aviso">
+            ⓘ Desembolo é um serviço para desfazer nós na pelagem
+            do pet. Poderá ser necessário e ter custo adicional,
+            conforme a condição do animal.
+          </div>
+
+          <label class="termos">
+
+            <input
+              type="checkbox"
+              [(ngModel)]="termosAceitos">
+
+            Concordo com os Termos e Condições
+
+          </label>
+
+        }
+
+        <!-- BOTÕES DE NAVEGAÇÃO -->
+        <div class="acoes">
+
+          @if (etapa > 0) {
+
+            <button
+              class="botao botao--secundario"
+              type="button"
+              (click)="voltar()">
+
+              Voltar
+
+            </button>
+
+          }
+
+          @if (etapa < 5) {
+
+            <button
+              class="botao botao--primario"
+              type="button"
+              (click)="avancar()"
+              [disabled]="
+                (etapa === 0 && !petsSelecionados.length) ||
+                (etapa === 1 && !lojaSelecionada) ||
+                (etapa === 4 && !dataSelecionada)
+              ">
+
+              Continuar <span>→</span>
+
+            </button>
+
+          } @else {
+
+            <button
+              class="botao botao--primario"
+              type="button"
+              (click)="confirmar()"
+              [disabled]="!termosAceitos">
+
+              Agendar <span>→</span>
+
+            </button>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+  </div>
+
+</main>
